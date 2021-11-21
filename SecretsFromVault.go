@@ -124,11 +124,7 @@ func (p *plugin) getSecretFromVault(path string, key string) (value string, err 
 		return "", fmt.Errorf("the path %s was not found", path)
 	}
 
-	data, ok := secret.Data["data"].(map[string]interface{})
-	if !ok {
-		return "", fmt.Errorf("malformed secret data: %q", secret.Data["data"])
-	}
-	if v, ok := data[key].(string); ok {
+	if v, ok := secret.Data[key].(string); ok {
 		return v, nil
 	}
 
